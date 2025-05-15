@@ -1,16 +1,22 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
-import ct1 from '../../assets/home/slide1.jpg';
-import ct2 from '../../assets/home/slide2.jpg';
-import ct3 from '../../assets/home/slide3.jpg';
-import ct4 from '../../assets/home/slide4.jpg';
-import ct5 from '../../assets/home/slide5.jpg';
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
+import ct1 from "../../assets/home/slide1.jpg";
+import ct2 from "../../assets/home/slide2.jpg";
+import ct3 from "../../assets/home/slide3.jpg";
+import ct4 from "../../assets/home/slide4.jpg";
+import ct5 from "../../assets/home/slide5.jpg";
+import SectionTitle from "../../components/SectionTitle";
 
 const Category = () => {
   return (
-       <Swiper
+    <section>
+      <SectionTitle
+      heading={"ORDER ONLINE"}
+      subHeading={"From 11am to 10pm"}
+      />
+      <Swiper
         slidesPerView={4}
         centeredSlides={true}
         spaceBetween={30}
@@ -22,24 +28,33 @@ const Category = () => {
       >
         <SwiperSlide>
           <img src={ct1} alt="ct1" />
-          <h3 className='text-white uppercase text-3xl -mt-20 text-center shadow-xl'>Salads</h3>
+          <h3 className="text-white uppercase text-3xl -mt-20 text-center shadow-xl">
+            Salads
+          </h3>
         </SwiperSlide>
         <SwiperSlide>
           <img src={ct2} alt="ct2" />
-          <h3 className='text-white uppercase text-3xl -mt-20 text-center shadow-xl'>Pizza</h3>
+          <h3 className="text-white uppercase text-3xl -mt-20 text-center shadow-xl">
+            Pizza
+          </h3>
         </SwiperSlide>
         <SwiperSlide>
           <img src={ct3} alt="ct3" />
-          <h3 className='text-white uppercase text-3xl -mt-20 text-center shadow-xl'>Soups</h3>
+          <h3 className="text-white uppercase text-3xl -mt-20 text-center shadow-xl">
+            Soups
+          </h3>
         </SwiperSlide>
         <SwiperSlide>
           <img src={ct4} alt="ct4" />
         </SwiperSlide>
         <SwiperSlide>
           <img src={ct5} alt="ct5" />
-          <h3 className='text-white uppercase text-3xl -mt-20 text-center shadow-xl'>Salads</h3>
+          <h3 className="text-white uppercase text-3xl -mt-20 text-center shadow-xl">
+            Salads
+          </h3>
         </SwiperSlide>
       </Swiper>
-  )
-}
+    </section>
+  );
+};
 export default Category;
