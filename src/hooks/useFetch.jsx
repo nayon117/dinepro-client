@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 
-const useMenu = () => {
-  const [menu, setMenu] = useState([]);
+const useFetch = (url) => {
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
     useEffect(() => {
-      fetch("menu.json")
+      fetch(url)
         .then((res) => res.json())
         .then((data) =>{
-          setMenu(data);
+          setData(data);
           setLoading(false);
         }
         );
-    }, []);
+    }, [url]);
 
-    return [menu,loading];
+    return [data,loading];
 }
-export default useMenu;
+export default useFetch;

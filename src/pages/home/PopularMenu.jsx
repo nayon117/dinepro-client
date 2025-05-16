@@ -1,19 +1,15 @@
 import SectionTitle from "../../components/SectionTitle";
-import MenuItem from "../../components/MenuItem";
-import useMenu from "../../hooks/useMenu";
+import useFetch from "../../hooks/useFetch";
+import MenuCategory from "../menu/MenuCategory";
+
 
 const PopularMenu = () => {
-  const [menu] = useMenu();
-  const popular = menu.filter(item=>item.category === 'popular');
+  const [data] = useFetch('menu.json');
+  const popular = data.filter(item=>item.category === 'popular');
   return (
     <section className="mb-12">
       <SectionTitle heading={"From our menu"} subHeading={"Popular Items"} />
-
-      <div className="grid md:grid-cols-2 gap-10">
-        {popular?.map((item) => (
-          <MenuItem key={item._id} item={item} />
-        ))}
-      </div>
+      <MenuCategory items={popular} />
     </section>
   );
 };
