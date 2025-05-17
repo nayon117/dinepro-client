@@ -1,4 +1,5 @@
 import ftimg from '../../../assets/home/featured.jpg'
+import Button from '../../../components/Button';
 import SectionTitle from '../../../components/SectionTitle';
 import './Featured.css'
 
@@ -18,7 +19,7 @@ const Featured = () => {
           <p>Where can i get some ?</p>
           <p>Enjoy our chef’s special — perfectly grilled and seasoned to satisfy every craving. Available for a limited time.
           </p>
-          <button className="btn btn-outline border-0 border-b-4 mt-4 rounded-xl">ORDER NOW</button>
+          <Button title={"Order Now"}/>
         </div>
        </div>
     </div>
