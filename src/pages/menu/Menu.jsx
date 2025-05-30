@@ -10,7 +10,7 @@ import dessertimg from "../../assets/menu/dessert-bg.jpeg";
 import useTitle from "../../hooks/useTitle";
 
 const Menu = () => {
-  const [data] = useFetch("menu.json");
+  const [data] = useFetch("http://localhost:5000/menu");
   const desserts = data.filter((item) => item.category === "dessert").slice(0, 6);
   const salads = data.filter((item) => item.category === "salad").slice(0, 6);
   const soups = data.filter((item) => item.category === "soup").slice(0, 6);

@@ -3,7 +3,6 @@ import Cover from "../shared/Cover";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import useFetch from "../../hooks/useFetch";
-import FoodCard from "../../components/FoodCard";
 import OrderTab from "./OrderTab";
 import { useParams } from "react-router-dom";
 import useTitle from "../../hooks/useTitle";
@@ -17,7 +16,7 @@ const Order = () => {
 
   useTitle("Order");
 
-  const [data] = useFetch("menu.json");
+  const [data] = useFetch("http://localhost:5000/menu");
   const desserts = data.filter((item) => item.category === "dessert");
   const salads = data.filter((item) => item.category === "salad");
   const soups = data.filter((item) => item.category === "soup");

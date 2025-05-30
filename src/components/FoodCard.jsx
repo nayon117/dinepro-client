@@ -1,3 +1,5 @@
+import Button from "./Button";
+
 const FoodCard = ({ item }) => {
   const { name, image, recipe, price } = item;
   return (
@@ -12,7 +14,7 @@ const FoodCard = ({ item }) => {
         </div>
         <p>{recipe}</p>
         <div className="card-actions justify-center">
-          <button className="btn btn-outline">Add to Cart</button>
+          <Button title={"Add to Cart"} />
         </div>
       </div>
     </div>

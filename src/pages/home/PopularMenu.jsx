@@ -4,7 +4,7 @@ import MenuCategory from "../menu/MenuCategory";
 
 
 const PopularMenu = () => {
-  const [data] = useFetch('menu.json');
+  const [data] = useFetch('http://localhost:5000/menu');
   const popular = data.filter(item=>item.category === 'popular');
   return (
     <section className="mb-12">
