@@ -1,14 +1,28 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
+  useTitle("Signup")
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => console.log(data)
+  const {createUser} = useContext(AuthContext);
+
+  const onSubmit = (data) => {
+    createUser(data.email,data.password)
+    .then(res=>{
+      const loggedUser = res.user;
+      console.log(loggedUser);
+      toast.success("Signup Successfull")
+    })
+  }
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -35,8 +49,9 @@ const SignUp = () => {
 
               {/* //password */}
               <label className="label">Password</label>
-              <input type="password" {...register("password", { required: true })} className="input" placeholder="Password" />
-              {errors.password && <span className="text-red-600">Password is required</span>}
+              <input type="password" {...register("password", { required: true ,minLength:6})} className="input" placeholder="Password" />
+              {errors.password?.type == 'required' && <span className="text-red-600">Password is required</span>}
+              {errors.password?.type == 'minLength' && <span className="text-red-600">Password must be 6 characters</span>}
 
 
               <input

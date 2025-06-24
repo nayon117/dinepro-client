@@ -1,12 +1,14 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
 import { Link } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
+import toast from 'react-hot-toast';
 
 
 const Login = () => {
-  const captchaRef = useRef(null);
   const [disabled, setDisabled] = useState(true);
+   useTitle("Signup")
 
   const {signIn} = useContext(AuthContext);
 
@@ -14,8 +16,8 @@ const Login = () => {
      loadCaptchaEnginge(6); 
   }, [])
 
-  const handleValidateCaptcha = () =>{
-      const value = captchaRef.current.value;
+  const handleValidateCaptcha = (e) =>{
+      const value = e.target.value;
       if(validateCaptcha(value)) setDisabled(false);
   }
 
@@ -28,6 +30,11 @@ const Login = () => {
     .then(res=>{
       const user = res.user;
       console.log(user);
+      toast.success("Login Successfull")
+    })
+    .catch(err=>{
+      console.log(err);
+      toast.error("Login unsuccessfull")
     })
   };
 
@@ -69,9 +76,8 @@ const Login = () => {
                 name="captcha"
                 className="input"
                 placeholder="type captcha"
-                ref={captchaRef}
+                onBlur={handleValidateCaptcha}
               />
-              <button onClick={handleValidateCaptcha}  className='btn btn-outline btn-xs mt-2 w-full '>Validate</button>
       
               <input
                 className="btn btn-neutral mt-4"
