@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
 import toast from 'react-hot-toast';
 
@@ -11,6 +11,9 @@ const Login = () => {
    useTitle("Signup")
 
   const {signIn} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/"
 
   useEffect(() => {
      loadCaptchaEnginge(6); 
@@ -31,6 +34,7 @@ const Login = () => {
       const user = res.user;
       console.log(user);
       toast.success("Login Successfull")
+      navigate(from,{replace:true})
     })
     .catch(err=>{
       console.log(err);
