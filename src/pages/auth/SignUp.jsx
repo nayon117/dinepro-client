@@ -1,6 +1,14 @@
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit = (data) => console.log(data)
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -13,14 +21,24 @@ const SignUp = () => {
           </p>
         </div>
         <div className="card bg-base-100 md:w-1/2 max-w-sm  shadow-2xl">
-          <form className="card-body">
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <fieldset className="fieldset">
+              {/* name */}
               <label className="label">Name</label>
-              <input type="text" name="name" className="input" placeholder="your name" />
+              <input type="text" {...register("name",{ required: true })} className="input" placeholder="your name" />
+              {errors.name && <span className="text-red-600">Name is required</span>}
+
+              {/* // email */}
               <label className="label">Email</label>
-              <input type="email"  name="email" className="input" placeholder="Email" />
+              <input type="email"  {...register("email" , { required: true })} className="input" placeholder="Email" />
+              {errors.email && <span className="text-red-600">Email is required</span>}
+
+              {/* //password */}
               <label className="label">Password</label>
-              <input type="password" name="password" className="input" placeholder="Password" />
+              <input type="password" {...register("password", { required: true })} className="input" placeholder="Password" />
+              {errors.password && <span className="text-red-600">Password is required</span>}
+
+
               <input
                 className="btn btn-neutral mt-4"
                 type="submit"
