@@ -1,14 +1,18 @@
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import useAxios from "../hooks/useAxios";
+import useCart from "../hooks/useCart";
 
 const FoodCard = ({ item }) => {
   const { name, image, recipe, price,_id} = item;
   const {user} = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const handleAddToCart = (food) =>{
+  const axiosSecure = useAxios();
+  const [,refetch] = useCart();
+
+  const handleAddToCart = () =>{
     if(user && user?.email) {
       const cartItem = {
         menuId: _id,
@@ -16,11 +20,12 @@ const FoodCard = ({ item }) => {
         image,
         price
       }
-      axios.post('http://localhost:5000/carts',cartItem)
+      axiosSecure.post('/carts',cartItem)
       .then(res=>{
         console.log(res.data)
         if(res.data.insertedId) {
           toast.success(`${name} added to cart`)
+          refetch();
         }
       })
     }else {
@@ -40,7 +45,7 @@ const FoodCard = ({ item }) => {
         </div>
         <p>{recipe}</p>
         <div className="card-actions justify-center">
-          <button onClick={()=>handleAddToCart(item)} className="btn btn-outline border-0 border-b-4 mt-4 rounded-xl">Add To Cart</button>
+          <button onClick={handleAddToCart} className="btn btn-outline border-0 border-b-4 mt-4 rounded-xl">Add To Cart</button>
         </div>
       </div>
     </div>

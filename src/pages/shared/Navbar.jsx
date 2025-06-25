@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 import { FiShoppingCart } from "react-icons/fi";
+import useCart from "../../hooks/useCart";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [cart] = useCart();
   const handleLogOut = () => {
     logOut()
       .then(() => {
@@ -29,7 +31,7 @@ const Navbar = () => {
         <Link to='/'>
           <button className="flex items-center">
             <FiShoppingCart className="mr-2 text-xl" />
-            <div className="badge badge-xs badge-secondary">+99</div>
+            <div className="badge badge-xs badge-secondary">{cart.length}</div>
           </button>
         </Link>
       </li>
