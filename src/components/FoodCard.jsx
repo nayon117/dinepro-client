@@ -1,7 +1,33 @@
-import Button from "./Button";
+import toast from "react-hot-toast";
+import useAuth from "../hooks/useAuth";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const FoodCard = ({ item }) => {
-  const { name, image, recipe, price } = item;
+  const { name, image, recipe, price,_id} = item;
+  const {user} = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const handleAddToCart = (food) =>{
+    if(user && user?.email) {
+      const cartItem = {
+        menuId: _id,
+        email:user?.email,
+        image,
+        price
+      }
+      axios.post('http://localhost:5000/carts',cartItem)
+      .then(res=>{
+        console.log(res.data)
+        if(res.data.insertedId) {
+          toast.success(`${name} added to cart`)
+        }
+      })
+    }else {
+      toast.error("Login First !")
+      navigate('/login',{state:{from : location}})
+    }
+  }
   return (
     <div className="card bg-base-100 w-96 shadow-sm">
       <figure>
@@ -14,7 +40,7 @@ const FoodCard = ({ item }) => {
         </div>
         <p>{recipe}</p>
         <div className="card-actions justify-center">
-          <Button title={"Add to Cart"} />
+          <button onClick={()=>handleAddToCart(item)} className="btn btn-outline border-0 border-b-4 mt-4 rounded-xl">Add To Cart</button>
         </div>
       </div>
     </div>

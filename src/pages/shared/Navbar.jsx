@@ -2,16 +2,17 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
+import { FiShoppingCart } from "react-icons/fi";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
-  const handleLogOut = () =>{
+  const handleLogOut = () => {
     logOut()
-    .then(()=>{
-      toast.success("Logout Successfull")
-    })
-    .catch(err=>console.log(err))
-  }
+      .then(() => {
+        toast.success("Logout Successfull");
+      })
+      .catch((err) => console.log(err));
+  };
 
   const navOpt = (
     <>
@@ -25,7 +26,12 @@ const Navbar = () => {
         <Link to="/order/salad">Order</Link>
       </li>
       <li>
-        <a>Contacts</a>
+        <Link to='/'>
+          <button className="flex items-center">
+            <FiShoppingCart className="mr-2 text-xl" />
+            <div className="badge badge-xs badge-secondary">+99</div>
+          </button>
+        </Link>
       </li>
     </>
   );
@@ -68,7 +74,9 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           {user ? (
-            <><button onClick={handleLogOut} >Logout</button> </>
+            <>
+              <button onClick={handleLogOut}>Logout</button>{" "}
+            </>
           ) : (
             <>
               <Link to="/login" className="btn">
