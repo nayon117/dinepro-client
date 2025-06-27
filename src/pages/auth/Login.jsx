@@ -1,45 +1,50 @@
-import { useContext, useEffect, useState } from 'react';
-import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
-import { AuthContext } from '../../providers/AuthProvider';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import useTitle from '../../hooks/useTitle';
-import toast from 'react-hot-toast';
-
+import { useContext, useEffect, useState } from "react";
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  LoadCanvasTemplateNoReload,
+  validateCaptcha,
+} from "react-simple-captcha";
+import { AuthContext } from "../../providers/AuthProvider";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
+import toast from "react-hot-toast";
+import SocialLogin from "../../components/SocialLogin";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
-   useTitle("Signup")
+  useTitle("Signup");
 
-  const {signIn} = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/"
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
-     loadCaptchaEnginge(6); 
-  }, [])
+    loadCaptchaEnginge(6);
+  }, []);
 
-  const handleValidateCaptcha = (e) =>{
-      const value = e.target.value;
-      if(validateCaptcha(value)) setDisabled(false);
-  }
+  const handleValidateCaptcha = (e) => {
+    const value = e.target.value;
+    if (validateCaptcha(value)) setDisabled(false);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    signIn(email,password)
-    .then(res=>{
-      const user = res.user;
-      console.log(user);
-      toast.success("Login Successfull")
-      navigate(from,{replace:true})
-    })
-    .catch(err=>{
-      console.log(err);
-      toast.error("Login unsuccessfull")
-    })
+    signIn(email, password)
+      .then((res) => {
+        const user = res.user;
+        console.log(user);
+        toast.success("Login Successfull");
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Login unsuccessfull");
+      });
   };
 
   return (
@@ -71,10 +76,9 @@ const Login = () => {
                 placeholder="Password"
               />
 
-            
-                <label className="label">
+              <label className="label">
                 <LoadCanvasTemplate />
-                </label>
+              </label>
               <input
                 type="text"
                 name="captcha"
@@ -82,7 +86,7 @@ const Login = () => {
                 placeholder="type captcha"
                 onBlur={handleValidateCaptcha}
               />
-      
+
               <input
                 className="btn btn-neutral mt-4"
                 type="submit"
@@ -91,7 +95,19 @@ const Login = () => {
               />
             </fieldset>
           </form>
-          <p className='mb-6 mx-auto'><small>New here ? <Link to ='/signup' className='underline text-orange-400'>Create a new Account</Link> </small></p>
+          <p className="mb-6 mx-auto">
+            <small>
+              New here ?{" "}
+              <Link to="/signup" className="underline text-orange-400">
+                Create a new Account
+              </Link>{" "}
+            </small>
+          </p>
+
+          {/* social login */}
+          <div className="flex items-center justify-center py-3 mb-3">
+            <SocialLogin />
+          </div>
         </div>
       </div>
     </div>
