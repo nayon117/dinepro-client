@@ -18,10 +18,10 @@ const DashboardLayout = () => {
   const [isAdmin] = useAdmin();
 
   return (
-    <div className="flex ">
+    <div className="flex flex-col md:flex-row ">
       {/* sidebar */}
-      <div className="w-64 min-h-screen bg-orange-400">
-        <ul className="menu p-4">
+      <div className="lg:w-64 min-h-screen bg-[#f0ba6f] text-black">
+        <ul className="menu p-4 text-md font-bold space-y-3 mt-8">
           {isAdmin ? (
             <>
               <li>
